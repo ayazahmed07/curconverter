@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import axios from "axios";
 import chalk from "chalk";
 import inquirer from "inquirer";
@@ -25,7 +26,7 @@ async function getExchangeRates() {
         return {};
     }
 }
-await textanimation(chalk.bgGray.black.bold.underline("********Currency Converter With Real Time Exchange Rates**********\n"));
+await textanimation(chalk.bgBlue.redBright.bold.underline("********Currency Converter With Real Time Exchange Rates**********\n"));
 async function main() {
     const exchangeRates = await getExchangeRates();
     const currency = {

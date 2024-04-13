@@ -34,7 +34,7 @@ async function getExchangeRates() {
     }
 }
 
-await textanimation (chalk.bgGray.black.bold.underline("********Currency Converter With Real Time Exchange Rates**********\n"));
+await textanimation (chalk.bgBlue.redBright.bold.underline("********Currency Converter With Real Time Exchange Rates**********\n"));
 
 async function main() {
     const exchangeRates = await getExchangeRates();
