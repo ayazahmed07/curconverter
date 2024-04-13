@@ -1,6 +1,18 @@
 import axios from "axios";
 import chalk from "chalk";
 import inquirer from "inquirer";
+async function textanimation(text) {
+    for (let char of text) {
+        process.stdout.write(char);
+        await new Promise((resolve) => setTimeout(resolve, 30));
+    }
+}
+async function textanimation_1(text) {
+    for (let char of text) {
+        process.stdout.write(char);
+        await new Promise((resolve) => setTimeout(resolve, 3));
+    }
+}
 const API_KEY = "c6a292310837471588429a6b326972ca";
 const BASE_URL = `https://openexchangerates.org/api/latest.json?app_id=${API_KEY}`;
 async function getExchangeRates() {
@@ -13,17 +25,15 @@ async function getExchangeRates() {
         return {};
     }
 }
+await textanimation(chalk.bgGray.black.bold.underline("********Currency Converter With Real Time Exchange Rates**********\n"));
 async function main() {
     const exchangeRates = await getExchangeRates();
     const currency = {
         Euro: exchangeRates.EUR,
         United_States_Dollar: exchangeRates.USD,
         British_Pound_Sterling: exchangeRates.GBP,
-        Indian_Rupee: exchangeRates.INR,
         Pakistani_Rupee: exchangeRates.PKR,
         Japanese_Yen: exchangeRates.JPY,
-        Chiness_Yuan: exchangeRates.CHY,
-        New_Zealand_Dollar: exchangeRates.NZD,
         South_African_Rand: exchangeRates.ZAR,
         Mexican_Peso: exchangeRates.MXN,
     };
@@ -43,7 +53,7 @@ async function main() {
         {
             name: "amount",
             type: "input",
-            message: chalk.yellow("Please enter your amount")
+            message: chalk.yellow("Please enter your amount"),
         },
     ]);
     const fromAmount = currency[userAnswer.from];
