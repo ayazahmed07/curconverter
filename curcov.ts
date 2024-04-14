@@ -37,6 +37,13 @@ async function getExchangeRates() {
 await textanimation (chalk.bgBlue.redBright.bold.underline("********Currency Converter With Real Time Exchange Rates**********\n"));
 
 async function main() {
+
+
+    let continueprocess = true;
+
+    while(continueprocess) {
+
+
     const exchangeRates = await getExchangeRates();
 
     const currency: any = {
@@ -50,6 +57,7 @@ async function main() {
 
     };
 
+    
     const userAnswer = await inquirer.prompt([
         {
             name: "from",
@@ -78,6 +86,21 @@ async function main() {
     const convertedAmount = baseAmount * toAmount;
 
     console.log("Converted amount:", convertedAmount);
+
+
+
+const replay = await inquirer.prompt({
+    name: "replay",
+    type: "confirm",
+    message: chalk.black.bold("Do you want to continue?"),
+    default: true,
+  });
+
+  continueprocess = replay.replay;
+
+  }
 }
 
+
 main();
+

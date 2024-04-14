@@ -28,40 +28,50 @@ async function getExchangeRates() {
 }
 await textanimation(chalk.bgBlue.redBright.bold.underline("********Currency Converter With Real Time Exchange Rates**********\n"));
 async function main() {
-    const exchangeRates = await getExchangeRates();
-    const currency = {
-        Euro: exchangeRates.EUR,
-        United_States_Dollar: exchangeRates.USD,
-        British_Pound_Sterling: exchangeRates.GBP,
-        Pakistani_Rupee: exchangeRates.PKR,
-        Japanese_Yen: exchangeRates.JPY,
-        South_African_Rand: exchangeRates.ZAR,
-        Mexican_Peso: exchangeRates.MXN,
-    };
-    const userAnswer = await inquirer.prompt([
-        {
-            name: "from",
-            type: "list",
-            message: chalk.blue("Enter from currency"),
-            choices: Object.keys(currency),
-        },
-        {
-            name: "to",
-            type: "list",
-            message: chalk.green("Enter to currency"),
-            choices: Object.keys(currency),
-        },
-        {
-            name: "amount",
-            type: "input",
-            message: chalk.yellow("Please enter your amount"),
-        },
-    ]);
-    const fromAmount = currency[userAnswer.from];
-    const toAmount = currency[userAnswer.to];
-    const amount = (userAnswer.amount);
-    const baseAmount = amount / fromAmount;
-    const convertedAmount = baseAmount * toAmount;
-    console.log("Converted amount:", convertedAmount);
+    let continueprocess = true;
+    while (continueprocess) {
+        const exchangeRates = await getExchangeRates();
+        const currency = {
+            Euro: exchangeRates.EUR,
+            United_States_Dollar: exchangeRates.USD,
+            British_Pound_Sterling: exchangeRates.GBP,
+            Pakistani_Rupee: exchangeRates.PKR,
+            Japanese_Yen: exchangeRates.JPY,
+            South_African_Rand: exchangeRates.ZAR,
+            Mexican_Peso: exchangeRates.MXN,
+        };
+        const userAnswer = await inquirer.prompt([
+            {
+                name: "from",
+                type: "list",
+                message: chalk.blue("Enter from currency"),
+                choices: Object.keys(currency),
+            },
+            {
+                name: "to",
+                type: "list",
+                message: chalk.green("Enter to currency"),
+                choices: Object.keys(currency),
+            },
+            {
+                name: "amount",
+                type: "input",
+                message: chalk.yellow("Please enter your amount"),
+            },
+        ]);
+        const fromAmount = currency[userAnswer.from];
+        const toAmount = currency[userAnswer.to];
+        const amount = (userAnswer.amount);
+        const baseAmount = amount / fromAmount;
+        const convertedAmount = baseAmount * toAmount;
+        console.log("Converted amount:", convertedAmount);
+        const replay = await inquirer.prompt({
+            name: "replay",
+            type: "confirm",
+            message: chalk.black.bold("Do you want to continue?"),
+            default: true,
+        });
+        continueprocess = replay.replay;
+    }
 }
 main();
